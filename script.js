@@ -1,22 +1,22 @@
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
+const startButton = document.getElementById('start-btn');
+const nextButton = document.getElementById('next-btn');
+const questionContainerElement = document.getElementById('question-container');
+const questionElement = document.getElementById('question');
+const answerButtonsElement = document.getElementById('answer-buttons');
 
-let shuffledMCQs, currentMCQIndex
-let shuffledSRQs, currentSRQIndex
-let currentQuestionIndex
+let shuffledMCQs, currentMCQIndex;
+let shuffledSRQs, currentSRQIndex;
+let currentQuestionIndex;
 
-startButton.addEventListener('click', startGame)
+startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
-  currentQuestionIndex++
+  currentQuestionIndex++;
   if (currentQuestionIndex >= MCQs.length) {
       currentSRQIndex++;ƒ
   } else {
       currentMCQIndex++;
   }
-  setNextQuestion()
+  setNextQuestion();
 })
 
 function startGame() {
@@ -63,38 +63,103 @@ function showQuestion(type, question) {
 }
 
 function resetState() {
-  clearStatusClass(document.body)
-  nextButton.classList.add('hide')
+  clearStatusClass(document.body);
+  nextButton.classList.add('hide');
   while (answerButtonsElement.firstChild) {
-    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
 }
 
 function selectAnswer(e) {
-  const selectedButton = e.target
-  const correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
+  const selectedButton = e.target;
+  const correct = selectedButton.dataset.correct;
+  setStatusClass(document.body, correct);
   Array.from(answerButtonsElement.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
+    setStatusClass(button, button.dataset.correct);
   })
   if (shuffledMCQs.length > currentMCQIndex + 1) {
-    nextButton.classList.remove('hide')
+    nextButton.classList.remove('hide');
   } else {
-    startButton.innerText = 'Restart'
-    startButton.classList.remove('hide')
+    startButton.innerText = 'Restart';
+    startButton.classList.remove('hide');
   }
 }
 
 function setStatusClass(element, correct) {
-  clearStatusClass(element)
+  clearStatusClass(element);
   if (correct) {
-    element.classList.add('correct')
+    element.classList.add('correct');
   } else {
-    element.classList.add('wrong')
+    element.classList.add('wrong');
   }
 }
 
 function clearStatusClass(element) {
-  element.classList.remove('correct')
-  element.classList.remove('wrong')
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
 }
+
+const MCQs = [
+  {
+    question: "What is 2 + 2?",
+    answers: [
+      { text: "4", correct: true },
+      { text: "22", correct: false }
+    ]
+  },
+  {
+    question: "Who is the best YouTuber?",
+    answers: [
+      { text: "Web Dev Simplified", correct: true },
+      { text: "Traversy Media", correct: true },
+      { text: "Dev Ed", correct: true },
+      { text: "Fun Fun Function", correct: true }
+    ]
+  },
+  {
+    question: "Is web development fun?",
+    answers: [
+      { text: "Kinda", correct: false },
+      { text: "YES!!!", correct: true },
+      { text: "Um no", correct: false },
+      { text: "IDK", correct: false }
+    ]
+  },
+  {
+    question: "What is 4 * 2?",
+    answers: [
+      { text: "6", correct: false },
+      { text: "8", correct: true }
+    ]
+  }
+];
+
+const SRQs = [
+  {
+    passage: "A",
+    questions: [
+      "Could this story be true?",
+      "What is the setting of this story?",
+      "Who is this story about? Describe him or her.",
+      "Identify the characters in the story by making a list of all the characters."
+    ]
+  },
+  {
+    passage: "B",
+    questions: [
+      "Locate the facts in the story and list the main facts.",
+      "Summarize the main facts in the story and discuss how they relate to the main idea of the story.",
+      "Has anything in your life happened that is similar to the things that happened in the story?",
+      "What events in the story could not happen in real life?",
+      "What is your opinion of the story? Did you enjoy reading it? Explain."
+    ]
+  },
+  {
+    passage: "C",
+    questions: [
+      "What is the setting of this story?",
+      "Who is this story about? Describe him or her.",
+      "Summarize the main facts in the story and discuss how they relate to the main idea of the story."
+    ]
+  }
+];
