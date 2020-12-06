@@ -27,19 +27,21 @@ function startGame() {
   currentMCQIndex = 0;
   currentSRQIndex = 0;
   questionContainerElement.classList.remove('hide')
-  setNextQuestion()
+  setNextQuestion(shuffledSRQs, shuffledMCQs);
 }
 
-function setNextQuestion() {
-  resetState()
+function setNextQuestion(shuffledSRQs, shuffledMCQs) {
+  resetState();
+  console.log(shuffledMCQs, shuffledSRQs);
   if (currentQuestionIndex >= MCQs.length) {
-      showQuestion("SRQ", shuffledMCQs[currentMCQIndex]);
+      showQuestion("MCQ", shuffledMCQs[currentMCQIndex]);
   } else {
-      showQuestion("MCQ", shuffledSRQs[currentSRQIndex]);
+      showQuestion("SRQ", shuffledSRQs[currentSRQIndex]);
   }
 }
 
 function showQuestion(type, question) {
+  console.log(question);
   if (type === "MCQ") {
       questionElement.innerText = question.question;
       question.answers.forEach(answer => {
