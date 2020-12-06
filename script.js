@@ -12,7 +12,7 @@ startButton.addEventListener('click', startGame);
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   if (currentQuestionIndex >= MCQs.length) {
-      currentSRQIndex++;ƒ
+      currentSRQIndex++;
   } else {
       currentMCQIndex++;
   }
@@ -34,9 +34,9 @@ function setNextQuestion(shuffledSRQs, shuffledMCQs) {
   resetState();
   console.log(shuffledMCQs, shuffledSRQs);
   if (currentQuestionIndex >= MCQs.length) {
-      showQuestion("MCQ", shuffledMCQs[currentMCQIndex]);
+    showQuestion("SRQ", shuffledSRQs[currentSRQIndex]);
   } else {
-      showQuestion("SRQ", shuffledSRQs[currentSRQIndex]);
+    showQuestion("MCQ", shuffledMCQs[currentMCQIndex]);
   }
 }
 
@@ -57,9 +57,11 @@ function showQuestion(type, question) {
   } else {
       questionElement.innerText = question.passage;
       question.questions.forEach(question => {
-          const questionText = document.createElement('blockquote');
+          const questionText = document.createElement('p');
           questionText.innerText = question;
           const response = document.createElement('textarea');
+          answerButtonsElement.appendChild(questionText)
+          answerButtonsElement.appendChild(response);
       });
   }
 }
